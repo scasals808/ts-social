@@ -17,7 +17,7 @@ const MyPosts = (props: ProfilePageType) => {
                 <textarea></textarea>
             </div>
             <div>
-                <button>Add Post</button>
+                <button >Add Post</button>
                 <button>Remove</button>
             </div>
             <div className={s.posts}>
