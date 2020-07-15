@@ -1,0 +1,46 @@
+.nav {
+    grid-area: n;
+    background-color: #0088cc;
+    padding: 20px;
+}
+
+.item {
+    width: 160px;
+    height: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+.item a.active {
+    color: black
+}
+
+.friends_header {
+    text-align: center;
+}
+
+.friends_item {
+    padding-top: 30px;
+    font-size: x-small;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+}
+
+.friends_name img {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    margin: auto;
+}
+
+.friends_name {
+    width: 50px;
+    height: 70px;
+    text-align: center;
+}
