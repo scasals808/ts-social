@@ -4,15 +4,29 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogPageType} from "../../Redux/state";
 
-export const Dialogs = (props: DialogPageType) => {
+type DialogsPropsType = {
+    dialogsData: DialogPageType
+}
 
-    let dialogsElements = props.dialogsData.map((dialog) => {
-        return <DialogItem id={dialog.id} name={dialog.name}/>
+export const Dialogs = (props: DialogsPropsType) => {
+
+    let dialogsElements = props.dialogsData.dialogsData.map((dialog) => {
+        return <DialogItem
+            key={dialog.id}
+            id={dialog.id}
+            name={dialog.name}/>
+    });
+
+    let messageElements = props.dialogsData.messagesData.map((message) => {
+        return <Message key={message.id} id={message.id} message={message.message}/>
     })
 
-    let messageElements = props.messagesData.map((message) => {
-        return <Message id={message.id} message={message.message}/>
-    })
+    let newMessageElement = React.createRef<HTMLTextAreaElement>();
+
+    let sendMessage = () => {
+        let text = newMessageElement.current?.value
+        alert(text)
+    }
 
     return (
         <div className={s.dialogs}>
@@ -21,6 +35,10 @@ export const Dialogs = (props: DialogPageType) => {
             </div>
             <div className={s.messages}>
                 {messageElements}
+            </div>
+            <div>
+                <textarea ref={newMessageElement}></textarea>
+                <button onClick={sendMessage}>Send</button>
             </div>
         </div>
     )

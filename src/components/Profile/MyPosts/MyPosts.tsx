@@ -1,23 +1,43 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {PostTypes, ProfilePageType} from "../../../Redux/state";
+import {ProfilePageType} from "../../../Redux/state";
 
+type PostsPropsType = {
+    profilePage: ProfilePageType
+    addPost: (postMessage: string) => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
+}
 
-const MyPosts = (props: ProfilePageType) => {
+export const MyPosts = (props: PostsPropsType) => {
 
-    let postElement = props.postData.map( (props) => {
-        return <Post id={props.id} message={props.message} likesCount={props.likesCount}/>
-    })
+    let postElement = props.profilePage.postData.map((props) => {
+        return <Post key={props.id}
+                     id={props.id}
+                     message={props.message}
+                     likesCount={props.likesCount}/>
+
+    });
+
+    let addPost = () => {
+            props.addPost(props.newPostText)
+    }
+
+    let onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.updateNewPostText(event.currentTarget.value)
+    }
 
     return <div className={s.postsBlock}>
         <h3>My Posts</h3>
         <div>
             <div>
-                <textarea></textarea>
+                <textarea onChange={onPostChangeHandler}
+                          value={props.newPostText}
+                />
             </div>
             <div>
-                <button >Add Post</button>
+                <button onClick={addPost}>Add Post</button>
                 <button>Remove</button>
             </div>
             <div className={s.posts}>
@@ -26,6 +46,3 @@ const MyPosts = (props: ProfilePageType) => {
         </div>
     </div>
 }
-
-
-export default MyPosts;
