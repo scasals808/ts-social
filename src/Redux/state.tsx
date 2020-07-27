@@ -1,5 +1,4 @@
 import React from "react";
-import {rerenderEntireTree} from "../render";
 
 export type DialogItemTypes = {
     id: number
@@ -9,6 +8,7 @@ export type MessageTypes = {
     id: number
     message: string
 }
+
 export type PostTypes = {
     id: number
     message: string
@@ -56,7 +56,7 @@ let state: RootStateType = {
     }
 }
 
-export const addPost = ()  => {
+export const addPost = () => {
     let newPost: PostTypes = {
         id: new Date().getTime(),
         message: state.profilePage.newPostText,
@@ -67,9 +67,17 @@ export const addPost = ()  => {
     rerenderEntireTree(state)
 }
 
-export const updateNewPostText = (newText: string)  => {
+export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
     rerenderEntireTree(state)
 }
 
-export default state
+let rerenderEntireTree = (state: RootStateType) => {
+    console.log('Hi')
+}
+
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    rerenderEntireTree = observer;
+}
+
+export default state;
