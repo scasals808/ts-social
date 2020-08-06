@@ -1,4 +1,7 @@
 import React from "react";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+import {sidebarReducer} from "./sidebarReducer";
 
 export type DialogItemTypes = {
     id: number
@@ -31,6 +34,7 @@ export type  DialogPageType = {
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
+    sidebar: {}
 }
 
 export type StoreType = {
@@ -71,7 +75,8 @@ export let store: StoreType = {
                 {id: 1, message: 'high'},
             ],
             newMessageText: ''
-        }
+        },
+        sidebar: {}
     },
     _callSubscriber() {
         console.log('Hi')
@@ -83,30 +88,10 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost: PostTypes = {
-                id: new Date().getTime(),
-                message: action.postText,
-                likesCount: 0
-            }
-            this._state.profilePage.postData.push(newPost);
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newMessage
-            this._callSubscriber()
-        } else if (action.type === SEND_MESSAGE) {
-            let message = this._state.dialogsPage.newMessageText
-            this._state.dialogsPage.newMessageText = ''
-            this._state.dialogsPage.messagesData.push({
-                id: new Date().getTime(),
-                message: message
-            })
-            this._callSubscriber()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber()
     }
 }
 export type ActionsTypes =
