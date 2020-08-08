@@ -1,48 +1,44 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {
-    ActionsTypes,
-    addPostActionCreator,
-    ProfilePageType,
-    updateNewPostTextActionCreator
-} from "../../../Redux/state";
+import {ProfilePageType} from "../../../Redux/store";
 
-type PostsPropsType = {
+type MyPostsPropsType = {
     profilePage: ProfilePageType
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    addPost: () => void
+    changeNewPostText: (newText: string) => void
 }
 
-export const MyPosts = (props: PostsPropsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
 
     let postElement = props.profilePage.postData.map((props, index) => {
         return <Post key={index}
                      id={props.id}
                      message={props.message}
                      likesCount={props.likesCount}/>
-
     });
 
     let onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = event.currentTarget.value
-        props.dispatch(updateNewPostTextActionCreator(newText))
+        props.changeNewPostText(newText)
     }
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator(props.newPostText))
+    let onAddPost = () => {
+        props.addPost()
     }
+
+    let newPostText = props.profilePage.newPostText
 
     return <div className={s.postsBlock}>
         <h3>My Posts</h3>
         <div>
             <div>
                 <textarea onChange={onPostChangeHandler}
-                          value={props.newPostText}
+                          value={newPostText}
                 />
             </div>
             <div>
-                <button onClick={addPost}>Add Post</button>
+                <button onClick={onAddPost}>Add Post</button>
                 <button>Remove</button>
             </div>
             <div className={s.posts}>

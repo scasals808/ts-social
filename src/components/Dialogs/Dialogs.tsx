@@ -7,12 +7,12 @@ import {
     DialogPageType,
     sendMessageActionCreator,
     updateNewMessageTextActionCreator
-} from "../../Redux/state";
+} from "../../Redux/store";
 
 type DialogsPropsType = {
     dialogsData: DialogPageType
-    newMessageText: string
-    dispatch: (action: ActionsTypes) => void
+    updateNewMessageBody: (newMessageText: string) => void
+    onSendMessageClick: () => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -28,15 +28,15 @@ export const Dialogs = (props: DialogsPropsType) => {
         return <Message key={index} id={message.id} message={message.message}/>
     })
 
-    let newMessageText = props.newMessageText
+    let newMessageText = props.dialogsData.newMessageText
 
     let onMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let newMessage = event.currentTarget.value
-        props.dispatch(updateNewMessageTextActionCreator(newMessage))
+        props.updateNewMessageBody(newMessage)
     }
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageActionCreator(props.newMessageText))
+        props.onSendMessageClick()
     }
 
     return (

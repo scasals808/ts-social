@@ -1,6 +1,12 @@
-import {ActionsTypes} from "./state";
+import {ActionsTypes, DialogItemTypes, MessageTypes} from "./store";
 
-export const sidebarReducer = (state: any, action: ActionsTypes) => {
+type InitialStateType = {
+}
+
+let initialState: InitialStateType = {
+}
+
+export const sidebarReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
 
     return state
 }

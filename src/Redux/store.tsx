@@ -1,7 +1,4 @@
 import React from "react";
-import {profileReducer} from "./profileReducer";
-import {dialogsReducer} from "./dialogsReducer";
-import {sidebarReducer} from "./sidebarReducer";
 
 export type DialogItemTypes = {
     id: number
@@ -38,8 +35,6 @@ export type RootStateType = {
 }
 
 export type StoreType = {
-    _state: RootStateType
-    _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
@@ -50,50 +45,6 @@ const SEND_MESSAGE = 'SEND_MESSAGE'
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 
-export let store: StoreType = {
-    _state: {
-        profilePage: {
-            postData: [
-                {id: 1, message: 'Hi', likesCount: 12},
-                {id: 1, message: 'By', likesCount: 120}
-            ],
-            newPostText: ''
-        },
-        dialogsPage: {
-            dialogsData: [
-                {id: 1, name: 'Dima',},
-                {id: 2, name: 'Vova',},
-                {id: 3, name: 'Tima',},
-                {id: 4, name: 'Katya',},
-                {id: 5, name: 'Misha',}
-            ],
-            messagesData: [
-                {id: 1, message: 'yo'},
-                {id: 1, message: 'ho'},
-                {id: 1, message: 'hey'},
-                {id: 1, message: 'go'},
-                {id: 1, message: 'high'},
-            ],
-            newMessageText: ''
-        },
-        sidebar: {}
-    },
-    _callSubscriber() {
-        console.log('Hi')
-    },
-    subscribe(observer) {
-        this._callSubscriber = observer;
-    },
-    getState() {
-        return this._state
-    },
-    dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this._callSubscriber()
-    }
-}
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof updateNewPostTextActionCreator> |
@@ -119,6 +70,51 @@ export const updateNewMessageTextActionCreator = (newMessage: string) => ({
     type: UPDATE_NEW_MESSAGE_TEXT,
     newMessage: newMessage
 } as const)
+
+// export let store: StoreType = {
+//     state: {
+//         profilePage: {
+//             postData: [
+//                 {id: 1, message: 'Hi', likesCount: 12},
+//                 {id: 1, message: 'By', likesCount: 120}
+//             ],
+//             newPostText: ''
+//         },
+//         dialogsPage: {
+//             dialogsData: [
+//                 {id: 1, name: 'Dima',},
+//                 {id: 2, name: 'Vova',},
+//                 {id: 3, name: 'Tima',},
+//                 {id: 4, name: 'Katya',},
+//                 {id: 5, name: 'Misha',}
+//             ],
+//             messagesData: [
+//                 {id: 1, message: 'yo'},
+//                 {id: 1, message: 'ho'},
+//                 {id: 1, message: 'hey'},
+//                 {id: 1, message: 'go'},
+//                 {id: 1, message: 'high'},
+//             ],
+//             newMessageText: ''
+//         },
+//         sidebar: {}
+//     },
+//     callSubscriber() {
+//         console.log('Hi')
+//     },
+//     subscribe(observer) {
+//         this.callSubscriber = observer;
+//     },
+//     getState() {
+//         return this.state
+//     },
+//     dispatch(action) {
+//         this.state.profilePage = profileReducer(this.state.profilePage, action)
+//         this.state.dialogsPage = dialogsReducer(this.state.dialogsPage, action)
+//         this.state.sidebar = sidebarReducer(this.state.sidebar, action)
+//         this.callSubscriber()
+//     }
+// }
 
 // export type ActionsTypes = AddPostActionType | UpdateNewPostTextType
 // type AddPostActionType = {
