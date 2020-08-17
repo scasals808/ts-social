@@ -1,32 +1,25 @@
-import React, {ChangeEvent} from "react";
-import {sendMessageActionCreator, StoreType, updateNewMessageTextActionCreator} from "../../Redux/store";
+import React, {ChangeEvent, Dispatch} from "react";
+import {ActionsTypes, RootStateType} from "../../Redux/store";
 import {Dialogs} from "./Dialogs";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../Redux/dialogsReducer";
 
-type DialogsPropsType = {
-
+let mapStateToProps = (state: RootStateType) => {
+    return {
+        dialogsData: state.dialogsPage
+    }
 }
-
-export const DialogsContainer = () => {
-
-    return <StoreContext.Consumer>{
-        (store) => {
-            let state = store.getState()
-
-            let onNewMessageChange = (newMessageText: string) => {
-                let action = updateNewMessageTextActionCreator(newMessageText)
-                store.dispatch(action)
-            }
-
-            let onSendMessageClick = () => {
-                store.dispatch(sendMessageActionCreator(state.profilePage.newPostText))
-            }
-            return <Dialogs updateNewMessageBody={onNewMessageChange}
-                            onSendMessageClick={onSendMessageClick}
-                            dialogsData={state.dialogsPage}
-            />
+//функция для данных
+let mapDispatchToProps = (dispatch: (action: ActionsTypes)=> void) => {
+    return {
+        updateNewMessageBody: (newMessage: string) => {
+            let action = updateNewMessageTextActionCreator(newMessage)
+            dispatch(action)
+        },
+        onSendMessageClick: () => {
+            dispatch(sendMessageActionCreator())
         }
     }
-    </StoreContext.Consumer>
-
 }
+//функция для коллбэков
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);

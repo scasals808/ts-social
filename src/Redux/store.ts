@@ -1,4 +1,6 @@
-import React from "react";
+
+import {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "./dialogsReducer";
 
 export type DialogItemTypes = {
     id: number
@@ -34,42 +36,17 @@ export type RootStateType = {
     sidebar: {}
 }
 
-export type StoreType = {
-    subscribe: (observer: () => void) => void
-    getState: () => RootStateType
-    dispatch: (action: ActionsTypes) => void
-}
-
-const ADD_POST = 'ADD_POST'
-const SEND_MESSAGE = 'SEND_MESSAGE'
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
+// export type StoreType = {
+//     subscribe: (observer: () => void) => void
+//     getState: () => RootStateType
+//     dispatch: (action: ActionsTypes) => void
+// }
 
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof updateNewPostTextActionCreator> |
     ReturnType<typeof updateNewMessageTextActionCreator> |
     ReturnType<typeof sendMessageActionCreator>
-
-export const addPostActionCreator = (newPostText: string) => ({
-    type: ADD_POST,
-    postText: newPostText
-} as const)
-
-export const updateNewPostTextActionCreator = (newText: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newText
-} as const)
-
-export const sendMessageActionCreator = (newMessageText: string) => ({
-    type: SEND_MESSAGE,
-    messageText: newMessageText
-} as const)
-
-export const updateNewMessageTextActionCreator = (newMessage: string) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newMessage: newMessage
-} as const)
 
 // export let store: StoreType = {
 //     state: {
