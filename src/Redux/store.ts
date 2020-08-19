@@ -1,6 +1,6 @@
-
 import {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
 import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "./dialogsReducer";
+import {FollowAC, setUsersAC, unFollowAC} from "./usersReducer";
 
 export type DialogItemTypes = {
     id: number
@@ -30,10 +30,24 @@ export type  DialogPageType = {
 
 }
 
+export type UsersTypes = {
+    id: number
+    imgUrl: string
+    followed: boolean
+    name: string
+    status: string
+    location: {city: string, country: string}
+}
+
+export type usersPageType = {
+    usersData: Array<UsersTypes>
+}
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
     sidebar: {}
+    usersPage: usersPageType
 }
 
 // export type StoreType = {
@@ -46,7 +60,12 @@ export type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof updateNewPostTextActionCreator> |
     ReturnType<typeof updateNewMessageTextActionCreator> |
-    ReturnType<typeof sendMessageActionCreator>
+    ReturnType<typeof sendMessageActionCreator> |
+    ReturnType<typeof FollowAC> |
+    ReturnType<typeof unFollowAC> |
+    ReturnType<typeof setUsersAC>
+
+
 
 // export let store: StoreType = {
 //     state: {
