@@ -1,70 +1,66 @@
 import React from "react";
-import {UsersTypes} from "../../Redux/store";
+import {usersPageType, UsersTypes} from "../../Redux/store";
 import s from './Users.module.css'
+import axios from 'axios';
+import userPhoto from '../../assets/image/user.png'
 
 type UsersPropsTypes = {
     usersData: Array<UsersTypes>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: Array<UsersTypes>) => void
+    setUsers: (items: Array<UsersTypes>) => void
+}
+type GetDataType = {
+    usersData: Array<UsersTypes>
 }
 
-export let Users = (props: UsersPropsTypes) => {
-debugger
-    if(props.setUsers.length === 0) {
+class Users extends React.Component<UsersPropsTypes> {
+
+    constructor(props: UsersPropsTypes) {
+        super(props);
         debugger
-        props.setUsers([
-            {
-                id: 1, imgUrl: 'https://p.kindpng.com/picc/s/563-5634840_cheems-doge-transparent-hd-png-download.png',
-                followed: true, name: 'Dmitry', status: ' I am a boss',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: 2,
-                imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQZ6AZlppXtCJXJw7a5VujMBdE86vE2aRc59g&usqp=CAU',
-                followed: false,
-                name: 'Sasha',
-                status: ' I asm a boss',
-                location: {city: 'Moscow', country: 'Russia'}
-            },
-            {
-                id: 3, imgUrl: 'https://i.imgflip.com/4/3cqykx.jpg',
-                followed: true, name: 'Andrew', status: ' I asm a boss',
-                location: {city: 'Kyiv', country: 'Ukraine'}
-            }
-        ])
+        if (this.props.usersData.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                })
+        }
     }
 
-    debugger;
-    return <div>
-        {
-            props.usersData.map((user, index) => <div key={index}>
+    render() {
+        return <div>
+            {
+                this.props.usersData.map((user, index) => <div key={index}>
                 <span>
                     <div>
-                        <img src={user.imgUrl} className={s.usersPhoto}/>
+                        <img src={user.photos.small != null ? user.photos.small : 'userPhoto'}
+                             className={s.usersPhoto}/>
                     </div>
                     <div>
                         {user.followed
                             ? <button onClick={() => {
-                                props.unfollow(user.id)
+                                this.props.unfollow(user.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                props.follow(user.id)
+                                this.props.follow(user.id)
                             }}>Follow</button>
                         }
                     </div>
                 </span>
-                <span>
+                    <span>
                     <span>
                         <div>{user.name}</div>
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{user.location.country}</div>
-                        <div>{user.location.city}</div>
+                        <div>{'user.location.country'}</div>
+                        <div>{'user.location.city'}</div>
                     </span>
                 </span>
-            </div>)
-        }
-    </div>
+                </div>)
+            }
+        </div>
+    }
 }
+
+export default Users

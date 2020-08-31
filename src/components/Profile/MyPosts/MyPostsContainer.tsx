@@ -3,8 +3,9 @@ import {ActionsTypes, RootStateType} from "../../../Redux/store";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/profileReducer";
+import {RootStateReduxType} from "../../../Redux/redux-store";
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: RootStateReduxType) => {
     return {
         profilePage: state.profilePage
     }

@@ -5,7 +5,7 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 
 type InitialStateType = {
-    usersData: Array<UsersTypes>
+    usersData: UsersTypes[]
 }
 
 let initialState: InitialStateType = {
@@ -36,7 +36,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             }
         case SET_USERS:
             debugger
-            return {...state, usersData: [...state.usersData, ...action.users]}
+            return {...state, usersData: [...state.usersData, ...action.items]}
         default:
             return state
     }
@@ -52,7 +52,7 @@ export const unFollowAC = (userId: number) => ({
     userId: userId
 } as const)
 
-export const setUsersAC = (users: Array<UsersTypes>) => ({
+export const setUsersAC = (items: Array<UsersTypes>) => ({
     type: SET_USERS,
-    users: users
+    items: items
 } as const)

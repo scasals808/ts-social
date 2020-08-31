@@ -32,15 +32,18 @@ export type  DialogPageType = {
 
 export type UsersTypes = {
     id: number
-    imgUrl: string
-    followed: boolean
     name: string
-    status: string
-    location: {city: string, country: string}
+    uniqueUrlName: null
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    status: null
+    followed: boolean
 }
 
 export type usersPageType = {
-    usersData: Array<UsersTypes>
+    items: Array<UsersTypes>
 }
 
 export type RootStateType = {
@@ -64,7 +67,6 @@ export type ActionsTypes =
     ReturnType<typeof FollowAC> |
     ReturnType<typeof unFollowAC> |
     ReturnType<typeof setUsersAC>
-
 
 
 // export let store: StoreType = {
