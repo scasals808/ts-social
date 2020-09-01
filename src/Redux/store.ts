@@ -1,6 +1,6 @@
 import {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
 import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "./dialogsReducer";
-import {FollowAC, setUsersAC, unFollowAC} from "./usersReducer";
+import {FollowAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC} from "./usersReducer";
 
 export type DialogItemTypes = {
     id: number
@@ -66,7 +66,10 @@ export type ActionsTypes =
     ReturnType<typeof sendMessageActionCreator> |
     ReturnType<typeof FollowAC> |
     ReturnType<typeof unFollowAC> |
-    ReturnType<typeof setUsersAC>
+    ReturnType<typeof setUsersAC> |
+    ReturnType<typeof setCurrentPageAC> |
+    ReturnType<typeof setTotalUsersCountAC>
+
 
 
 // export let store: StoreType = {
