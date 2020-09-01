@@ -8,7 +8,7 @@ type PropsTypes = {
     totalUsersCount: number
     currentPage: number
     follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    unFollow: (userId: number) => void
     onPageChanged: (page: number) => void
 }
 
@@ -40,7 +40,7 @@ export let Users = (props: PropsTypes) => {
                     <div>
                         {user.followed
                             ? <button onClick={() => {
-                                props.unfollow(user.id)
+                                props.unFollow(user.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
                                 props.follow(user.id)

@@ -2,12 +2,12 @@ import React from "react";
 import {connect} from "react-redux";
 import {ActionsTypes, UsersTypes} from "../../Redux/store";
 import {
-    FollowAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unFollowAC
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unFollow
 } from "../../Redux/usersReducer";
 import {RootStateReduxType} from "../../Redux/redux-store";
 import axios from "axios";
@@ -21,7 +21,7 @@ type UsersPropsTypes = {
     currentPage: number
     isFetching: boolean
     follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    unFollow: (userId: number) => void
     setUsers: (items: Array<UsersTypes>) => void
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (totalCount: number) => void
@@ -58,7 +58,7 @@ class UsersAPIComponent extends React.Component<UsersPropsTypes> {
                    currentPage={this.props.currentPage}
                    onPageChanged={this.onPageChanged}
                    usersData={this.props.usersData}
-                   unfollow={this.props.unfollow}
+                   unFollow={this.props.unFollow}
                    follow={this.props.follow}
             />
         </>
@@ -75,6 +75,7 @@ let mapStateToProps = (state: RootStateReduxType) => {
     }
 }
 
+/*
 let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     return {
         follow: (userId: number) => {
@@ -97,5 +98,8 @@ let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
         }
     }
 }
+*/
+//инкапсулированная логика в мапдиспачтупропсе
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(mapStateToProps,
+    {follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})(UsersAPIComponent)

@@ -1,12 +1,8 @@
-import {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
-import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "./dialogsReducer";
+import {addPost, updateNewPostText} from "./profileReducer";
+import {sendMessage, updateNewMessageText} from "./dialogsReducer";
 import {
-    FollowAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unFollowAC
+    follow, setCurrentPage, setTotalUsersCount,
+    setUsers, toggleIsFetching, unFollow
 } from "./usersReducer";
 
 export type DialogItemTypes = {
@@ -67,17 +63,16 @@ export type RootStateType = {
 // }
 
 export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof updateNewPostTextActionCreator> |
-    ReturnType<typeof updateNewMessageTextActionCreator> |
-    ReturnType<typeof sendMessageActionCreator> |
-    ReturnType<typeof FollowAC> |
-    ReturnType<typeof unFollowAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC> |
-    ReturnType<typeof toggleIsFetchingAC>
-
+    ReturnType<typeof addPost> |
+    ReturnType<typeof updateNewPostText> |
+    ReturnType<typeof updateNewMessageText> |
+    ReturnType<typeof sendMessage> |
+    ReturnType<typeof follow> |
+    ReturnType<typeof unFollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalUsersCount> |
+    ReturnType<typeof toggleIsFetching>
 
 
 // export let store: StoreType = {

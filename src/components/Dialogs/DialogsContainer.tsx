@@ -2,7 +2,7 @@ import React, {ChangeEvent, Dispatch} from "react";
 import {ActionsTypes, RootStateType} from "../../Redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../Redux/dialogsReducer";
+import {sendMessage, updateNewMessageText} from "../../Redux/dialogsReducer";
 
 let mapStateToProps = (state: RootStateType) => {
     return {
@@ -10,16 +10,20 @@ let mapStateToProps = (state: RootStateType) => {
     }
 }
 //функция для данных
-let mapDispatchToProps = (dispatch: (action: ActionsTypes)=> void) => {
+/*let mapDispatchToProps = (dispatch: (action: ActionsTypes)=> void) => {
     return {
         updateNewMessageBody: (newMessage: string) => {
-            let action = updateNewMessageTextActionCreator(newMessage)
+            let action = updateNewMessageText(newMessage)
             dispatch(action)
         },
         onSendMessageClick: () => {
-            dispatch(sendMessageActionCreator())
+            dispatch(sendMessage())
         }
     }
-}
+}*/
 //функция для коллбэков
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+export const DialogsContainer = connect(mapStateToProps, {
+    sendMessage,
+    updateNewMessageText
+})(Dialogs);

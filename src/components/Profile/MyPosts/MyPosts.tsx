@@ -6,7 +6,7 @@ import {ProfilePageType} from "../../../Redux/store";
 type MyPostsPropsType = {
     profilePage: ProfilePageType
     addPost: () => void
-    changeNewPostText: (newText: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -20,7 +20,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     let onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = event.currentTarget.value
-        props.changeNewPostText(newText)
+        props.updateNewPostText(newText)
     }
 
     let onAddPost = () => {

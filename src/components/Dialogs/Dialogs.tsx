@@ -4,10 +4,12 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogPageType} from "../../Redux/store";
 
+
+
 type DialogsPropsType = {
     dialogsData: DialogPageType
-    updateNewMessageBody: (newMessageText: string) => void
-    onSendMessageClick: () => void
+    updateNewMessageText: (newMessageText: string) => void
+    sendMessage: () => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -27,11 +29,11 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     let onMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let newMessage = event.currentTarget.value
-        props.updateNewMessageBody(newMessage)
+        props.updateNewMessageText(newMessage)
     }
 
     let onSendMessageClick = () => {
-        props.onSendMessageClick()
+        props.sendMessage()
     }
 
     return (
