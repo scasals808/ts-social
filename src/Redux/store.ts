@@ -1,9 +1,10 @@
-import {addPost, updateNewPostText} from "./profileReducer";
+import {addPost, setUserProfile, updateNewPostText} from "./profileReducer";
 import {sendMessage, updateNewMessageText} from "./dialogsReducer";
 import {
     follow, setCurrentPage, setTotalUsersCount,
     setUsers, toggleIsFetching, unFollow
 } from "./usersReducer";
+import {store} from "./redux-store";
 
 export type DialogItemTypes = {
     id: number
@@ -21,9 +22,34 @@ export type PostTypes = {
     likesCount: number
 }
 
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+export type PhotosType = {
+    small: string | null
+    large: string | null
+}
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+    aboutMe: string
+}
+
 export type ProfilePageType = {
     postData: Array<PostTypes>
     newPostText: string
+    profile: ProfileType
 }
 
 export type  DialogPageType = {
@@ -72,7 +98,8 @@ export type ActionsTypes =
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUsersCount> |
-    ReturnType<typeof toggleIsFetching>
+    ReturnType<typeof toggleIsFetching> |
+    ReturnType<typeof setUserProfile>
 
 
 // export let store: StoreType = {

@@ -1,17 +1,18 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {ProfilePageType} from "../../../Redux/store";
+import {PostTypes} from "../../../Redux/store";
 
 type MyPostsPropsType = {
-    profilePage: ProfilePageType
+    postData: Array<PostTypes>
+    newPostText: string
     addPost: () => void
     updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    let postElement = props.profilePage.postData.map((props, index) => {
+    let postElement = props.postData.map((props, index) => {
         return <Post key={index}
                      id={props.id}
                      message={props.message}
@@ -27,7 +28,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         props.addPost()
     }
 
-    let newPostText = props.profilePage.newPostText
+    let newPostText = props.newPostText
 
     return <div className={s.postsBlock}>
         <h3>My Posts</h3>

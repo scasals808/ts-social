@@ -1,4 +1,4 @@
-import {ActionsTypes, DialogItemTypes, MessageTypes} from "./store";
+import {ActionsTypes} from "./store";
 
 type InitialStateType = {
 }

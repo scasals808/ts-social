@@ -1,4 +1,3 @@
-import React from "react";
 import {createStore, combineReducers} from "redux";
 import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
@@ -14,4 +13,8 @@ let reducers = combineReducers({
 
 export type RootStateReduxType = ReturnType<typeof reducers>
 
+
 export let store = createStore(reducers)
+
+// @ts-ignore
+window.store = store

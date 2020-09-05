@@ -1,5 +1,5 @@
-import React, {ChangeEvent, Dispatch} from "react";
-import {ActionsTypes, RootStateType} from "../../Redux/store";
+
+import {RootStateType} from "../../Redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {sendMessage, updateNewMessageText} from "../../Redux/dialogsReducer";

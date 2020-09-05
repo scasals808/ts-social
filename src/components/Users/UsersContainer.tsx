@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {ActionsTypes, UsersTypes} from "../../Redux/store";
+import {UsersTypes} from "../../Redux/store";
 import {
     follow,
     setCurrentPage,
