@@ -1,4 +1,4 @@
-import {ActionsTypes, PostTypes} from './store';
+import {ActionsTypes, PostTypes, ProfileType} from './store';
 
 const ADD_POST = 'ADD_POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
@@ -7,7 +7,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE'
 type InitialStateType = {
     postData: Array<PostTypes>
     newPostText: string
-    profile: any
+    profile:  ProfileType | null,
 }
 
 let initialState: InitialStateType = {
@@ -52,7 +52,7 @@ export const updateNewPostText = (newText: string) => ({
     newText
 } as const)
 
-export const setUserProfile = (profile: any) => ({
+export const setUserProfile = (profile: ProfileType) => ({
     type: SET_USER_PROFILE,
     profile
 } as const)

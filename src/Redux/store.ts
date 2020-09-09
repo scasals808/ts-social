@@ -5,6 +5,7 @@ import {
     setUsers, toggleIsFetching, unFollow
 } from "./usersReducer";
 import {store} from "./redux-store";
+import {setAuthUserData, setUserPhoto} from "./auth-reducer";
 
 export type DialogItemTypes = {
     id: number
@@ -99,7 +100,11 @@ export type ActionsTypes =
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUsersCount> |
     ReturnType<typeof toggleIsFetching> |
-    ReturnType<typeof setUserProfile>
+    ReturnType<typeof setUserProfile> |
+    ReturnType<typeof setAuthUserData> |
+    ReturnType<typeof setUserPhoto>
+
+
 
 
 // export let store: StoreType = {

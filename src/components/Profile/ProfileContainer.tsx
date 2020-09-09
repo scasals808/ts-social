@@ -6,17 +6,16 @@ import {setUserProfile} from "../../Redux/profileReducer";
 import {RootStateReduxType} from "../../Redux/redux-store";
 import {withRouter} from "react-router-dom"
 import {RouteComponentProps} from "react-router"
+import {ProfileType} from "../../Redux/store";
 
 type PatsParamsType = {
     userId: string
 }
 
-type MapStatePropsType = {
-    profile: any
-}
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: any) => void
+    setUserProfile: (profile: ProfileType) => void
 }
 
 type PropsType = RouteComponentProps<PatsParamsType> & OwnPropsType
@@ -39,7 +38,7 @@ class ProfileAPIContainer extends React.Component<PropsType> {
     }
 }
 
-let mapStateToProps = (state: RootStateReduxType): MapStatePropsType => {
+let mapStateToProps = (state: RootStateReduxType) => {
     return {
         profile: state.profilePage.profile,
     }

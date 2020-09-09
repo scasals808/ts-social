@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Users.module.css";
 import {UsersTypes} from "../../Redux/store";
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 type PropsTypes = {
     usersData: Array<UsersTypes>
@@ -36,17 +37,28 @@ export let Users = (props: PropsTypes) => {
                     <div>
                         <NavLink to={'/profile/' + user.id}>
                             <img
-                            src={user.photos.small !== null ? user.photos.small : 'https://www.vhv.rs/dpng/d/406-4061655_doge-meme-mlg-dog-doggo-funny-doge-thug.png'}
-                            className={s.usersPhoto}/>
+                                src={user.photos.small !== null ? user.photos.small : 'https://www.vhv.rs/dpng/d/406-4061655_doge-meme-mlg-dog-doggo-funny-doge-thug.png'}
+                                className={s.usersPhoto}/>
                         </NavLink>
                     </div>
                     <div>
                         {user.followed
                             ? <button onClick={() => {
-                                props.unFollow(user.id)
+                                usersAPI.unFollowUser(user.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.unFollow(user.id)
+                                        }
+                                    })
+
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                props.follow(user.id)
+                                usersAPI.followUser(user.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.follow(user.id)
+                                        }
+                                    })
                             }}>Follow</button>
                         }
                     </div>

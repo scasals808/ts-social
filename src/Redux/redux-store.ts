@@ -3,12 +3,14 @@ import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 import {profileReducer} from "./profileReducer";
 import {usersReducer} from "./usersReducer";
+import {authReducer} from "./auth-reducer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export type RootStateReduxType = ReturnType<typeof reducers>
