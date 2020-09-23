@@ -1,10 +1,9 @@
 import {addPost, setUserProfile, updateNewPostText} from "./profileReducer";
 import {sendMessage, updateNewMessageText} from "./dialogsReducer";
 import {
-    follow, setCurrentPage, setTotalUsersCount,
-    setUsers, toggleIsFetching, unFollow
+    followSuccess, setCurrentPage, setTotalUsersCount,
+    setUsers, toggleFollowingInProgress, toggleIsFetching, unfollowSuccess
 } from "./usersReducer";
-import {store} from "./redux-store";
 import {setAuthUserData, setUserPhoto} from "./auth-reducer";
 
 export type DialogItemTypes = {
@@ -94,15 +93,16 @@ export type ActionsTypes =
     ReturnType<typeof updateNewPostText> |
     ReturnType<typeof updateNewMessageText> |
     ReturnType<typeof sendMessage> |
-    ReturnType<typeof follow> |
-    ReturnType<typeof unFollow> |
+    ReturnType<typeof followSuccess> |
+    ReturnType<typeof unfollowSuccess> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUsersCount> |
     ReturnType<typeof toggleIsFetching> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setAuthUserData> |
-    ReturnType<typeof setUserPhoto>
+    ReturnType<typeof setUserPhoto> |
+    ReturnType<typeof toggleFollowingInProgress>
 
 
 

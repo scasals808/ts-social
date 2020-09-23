@@ -4,6 +4,7 @@ import {UsersTypes} from "../../Redux/store";
 import {NavLink} from "react-router-dom";
 import {usersAPI} from "../../api/api";
 
+
 type PropsTypes = {
     usersData: Array<UsersTypes>
     pageSize: number
@@ -12,6 +13,7 @@ type PropsTypes = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     onPageChanged: (page: number) => void
+    followingInProgress: Array<number>
 }
 
 export let Users = (props: PropsTypes) => {
@@ -42,24 +44,16 @@ export let Users = (props: PropsTypes) => {
                         </NavLink>
                     </div>
                     <div>
-                        {user.followed
-                            ? <button onClick={() => {
-                                usersAPI.unFollowUser(user.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.unFollow(user.id)
-                                        }
-                                    })
-
-                            }}>Unfollow</button>
-                            : <button onClick={() => {
-                                usersAPI.followUser(user.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.follow(user.id)
-                                        }
-                                    })
-                            }}>Follow</button>
+                        {
+                            user.followed
+                                ? <button disabled={props.followingInProgress.some(id => id === user.id)}
+                                          onClick={() => {
+                                              props.unFollow(user.id)
+                                          }}>Unfollow</button>
+                                : <button disabled={props.followingInProgress.some(id => id === user.id)}
+                                          onClick={() => {
+                                              props.follow(user.id)
+                                          }}>Follow</button>
                         }
                     </div>
                 </span>

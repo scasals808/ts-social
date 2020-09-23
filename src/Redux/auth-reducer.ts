@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./store";
-import logo192 from '../assets/image/logo192.png'
+import {authApi, usersAPI} from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_USER_PHOTO = 'SET_USER_PHOTO'
@@ -17,7 +17,7 @@ let initialState: InitialStateType = {
     login: null,
     email: null,
     isAuth: false,
-    photo: logo192
+    photo: null
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
@@ -46,11 +46,26 @@ export const setAuthUserData = (id: number, login: string, email: string) => ({
         email
     }
 } as const)
-
 export const setUserPhoto = (photo: string) => ({
     type: SET_USER_PHOTO,
     photo
 } as const)
+
+export const getAuth = (userId: number | null) => {
+    return (dispatch: any) => {
+        authApi.getAuthProfile()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {id, login, email} = data.data
+                    dispatch(setAuthUserData(id, login, email))
+                    usersAPI.getUserProfile(String(userId))
+                        .then(data => {
+                            dispatch(setUserPhoto(data.photos.small))
+                        })
+                }
+            })
+    }
+}
 
 
 
