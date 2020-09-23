@@ -1,12 +1,12 @@
-
-import {RootStateType} from "../../Redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {sendMessage, updateNewMessageText} from "../../Redux/dialogsReducer";
+import {RootStateReduxType} from "../../Redux/redux-store";
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: RootStateReduxType) => {
     return {
-        dialogsData: state.dialogsPage
+        dialogsData: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 //функция для данных

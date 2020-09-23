@@ -75,13 +75,6 @@ export type usersPageType = {
     items: Array<UsersTypes>
 }
 
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogPageType
-    sidebar: {}
-    usersPage: usersPageType
-}
-
 // export type StoreType = {
 //     subscribe: (observer: () => void) => void
 //     getState: () => RootStateType
