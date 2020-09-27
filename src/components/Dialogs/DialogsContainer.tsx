@@ -2,28 +2,22 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {sendMessage, updateNewMessageText} from "../../Redux/dialogsReducer";
 import {RootStateReduxType} from "../../Redux/redux-store";
+import React from "react";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 let mapStateToProps = (state: RootStateReduxType) => {
     return {
-        dialogsData: state.dialogsPage,
-        isAuth: state.auth.isAuth
+        dialogsData: state.dialogsPage
     }
 }
-//функция для данных
-/*let mapDispatchToProps = (dispatch: (action: ActionsTypes)=> void) => {
-    return {
-        updateNewMessageBody: (newMessage: string) => {
-            let action = updateNewMessageText(newMessage)
-            dispatch(action)
-        },
-        onSendMessageClick: () => {
-            dispatch(sendMessage())
-        }
-    }
-}*/
-//функция для коллбэков
 
-export const DialogsContainer = connect(mapStateToProps, {
-    sendMessage,
-    updateNewMessageText
-})(Dialogs);
+export default compose(withAuthRedirect,
+    connect(mapStateToProps,
+        {sendMessage, updateNewMessageText}),
+)(Dialogs)
+
+// let AuthRedirectComponent = withAuthRedirect(Dialogs)
+//
+// export const DialogsContainer = connect(mapStateToProps,
+//     {sendMessage, updateNewMessageText})(AuthRedirectComponent);

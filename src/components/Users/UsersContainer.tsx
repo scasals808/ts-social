@@ -11,6 +11,8 @@ import {
 import {RootStateReduxType} from "../../Redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type MapStatePropsType = {
     usersData: Array<UsersTypes>
@@ -31,14 +33,14 @@ type MapDispatchPropsType = {
 
 type PropsType = MapStatePropsType & MapDispatchPropsType
 
-class UsersAPIComponent extends React.Component<PropsType> {
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage,this.props.pageSize)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
         //используем санку, логика запроса в редьюсере
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber,this.props.pageSize)
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -67,15 +69,20 @@ let mapStateToProps = (state: RootStateReduxType) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
+// let withRedirect = withAuthRedirect(UsersContainer)
 
-export const UsersContainer = connect(mapStateToProps,
-    {
-        follow,
-        unFollow,
-        setCurrentPage,
-        toggleFollowingInProgress,
-        getUsers
-    })(UsersAPIComponent)
+// export default withAuthRedirect(connect(mapStateToProps,
+//     {
+//         follow, unFollow, setCurrentPage,
+//         toggleFollowingInProgress, getUsers
+//     })(UsersContainer))
+
+export default compose(withAuthRedirect,
+    connect(mapStateToProps,
+        {
+            follow, unFollow, setCurrentPage,
+            toggleFollowingInProgress, getUsers
+        }))(UsersContainer)
 /*
 let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     return {

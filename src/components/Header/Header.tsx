@@ -15,7 +15,7 @@ const Header = (props: PropsType) => {
         <img
             src='https://www.vhv.rs/dpng/d/406-4061655_doge-meme-mlg-dog-doggo-funny-doge-thug.png'/>
     <div className={s.loginBlock}>
-        {props.isAuth ? props.login : <NavLink to={'/login'}>Log in</NavLink>}
+        {props.isAuth ? <NavLink to={'/profile/' + props.id}>{props.login}</NavLink> : <NavLink to={'/login'}>Log in</NavLink>}
     </div>
         <div className={s.photoBlock}>
             {props.isAuth ?

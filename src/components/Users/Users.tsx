@@ -2,8 +2,6 @@ import React from "react";
 import s from "./Users.module.css";
 import {UsersTypes} from "../../Redux/store";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
-
 
 type PropsTypes = {
     usersData: Array<UsersTypes>
