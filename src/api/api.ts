@@ -36,5 +36,10 @@ export const authApi = {
     }
 }
 
+export const profileApi = {
+    getStatus(userId: number) {
+        return instance.get(`profile/status/${userId}`)
+    }
+}
 
 
