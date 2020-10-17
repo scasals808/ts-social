@@ -5,7 +5,7 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const SET_USER_PHOTO = 'SET_USER_PHOTO'
 
 type InitialStateType = {
-    id: number | null
+    id: number
     login: string | null
     email: string | null
     isAuth: boolean
@@ -13,7 +13,7 @@ type InitialStateType = {
 }
 
 let initialState: InitialStateType = {
-    id: null,
+    id: 10886,
     login: null,
     email: null,
     isAuth: false,
@@ -51,14 +51,14 @@ export const setUserPhoto = (photo: string) => ({
     photo
 } as const)
 
-export const getAuth = (userId: number | null) => {
+export const getAuth = (userId: number) => {
     return (dispatch: any) => {
         authApi.getAuthProfile()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data
                     dispatch(setAuthUserData(id, login, email))
-                    usersAPI.getUserProfile(String(userId))
+                    usersAPI.getUserProfile(userId)
                         .then(data => {
                             dispatch(setUserPhoto(data.photos.small))
                         })

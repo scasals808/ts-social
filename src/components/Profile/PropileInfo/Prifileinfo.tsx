@@ -6,7 +6,9 @@ import {ProfileType} from "../../../Redux/store";
 
 
 type ProfileInfoPropsType = {
-    profile:  ProfileType | null,
+    profile:  ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -17,7 +19,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     return <div>
         <div className={s.description_block}>
             <img src={props.profile.photos.large !== null ? props.profile.photos.large : 'https://www.vhv.rs/dpng/d/406-4061655_doge-meme-mlg-dog-doggo-funny-doge-thug.png'}/>
-            <ProfileStatus status={'yo!'}/>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             <div>{props.profile.fullName}</div>
             <div>{props.profile.aboutMe}</div>
             <div>'Looking for a job'{props.profile.lookingForAJob === true ? '+' : '-'}</div>

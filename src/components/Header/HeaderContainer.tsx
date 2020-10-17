@@ -6,7 +6,7 @@ import {getAuth} from "../../Redux/auth-reducer";
 
 
 type MapStatePropsType = {
-    id: number | null
+    id: number
     login: string | null
     email: string | null
     isAuth: boolean
@@ -14,7 +14,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    getAuth: (userId: number | null) => void
+    getAuth: (userId: number) => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType
@@ -36,6 +36,6 @@ const mapStateProps = (state: RootStateReduxType): MapStatePropsType => ({
     email: state.auth.email,
     isAuth: state.auth.isAuth,
     photo: state.auth.photo
-})
+}) as MapStatePropsType
 
 export const HeaderContainer = connect(mapStateProps, {getAuth})(HeaderAPIContainer)
