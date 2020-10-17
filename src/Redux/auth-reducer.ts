@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./store";
-import {authApi, usersAPI} from "../api/api";
+import {authApi, profileApi, usersAPI} from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_USER_PHOTO = 'SET_USER_PHOTO'
@@ -58,11 +58,12 @@ export const getAuth = (userId: number) => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data
                     dispatch(setAuthUserData(id, login, email))
-                    usersAPI.getUserProfile(userId)
+                    profileApi.getUserProfile(userId)
                         .then(data => {
                             dispatch(setUserPhoto(data.photos.small))
                         })
                 }
+
             })
     }
 }
