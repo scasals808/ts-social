@@ -2,41 +2,39 @@ import {ActionsTypes, PostTypes, ProfileType} from './store';
 import {profileApi, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD_POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
 type InitialStateType = {
     postData: Array<PostTypes>
-    newPostText: string
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
 }
 
 let initialState: InitialStateType = {
     postData: [],
-    newPostText: '',
-    profile: {
-        userId: 0,
-        lookingForAJob: true,
-        lookingForAJobDescription: '',
-        fullName:  '',
-        contacts: {
-            github: '',
-            vk: '',
-            facebook: '',
-            instagram: '',
-            twitter: '',
-            website: '',
-            youtube: '',
-            mainLink: ''
-        },
-        photos: {
-            small: '',
-            large: ''
-        },
-        aboutMe: ''
-    },
+    // profile: {
+    //     userId: 0,
+    //     lookingForAJob: true,
+    //     lookingForAJobDescription: '',
+    //     fullName:  '',
+    //     contacts: {
+    //         github: '',
+    //         vk: '',
+    //         facebook: '',
+    //         instagram: '',
+    //         twitter: '',
+    //         website: '',
+    //         youtube: '',
+    //         mainLink: ''
+    //     },
+    //     photos: {
+    //         small: '',
+    //         large: ''
+    //     },
+    //     aboutMe: ''
+    // },
+    profile: null,
     status: ''
 }
 
@@ -45,20 +43,14 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case ADD_POST: {
             let newPost = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.NewPost,
                 likesCount: 0
             }
             return {
                 ...state,
-                postData: [...state.postData, newPost],
-                newPostText: ''
+                postData: [newPost, ...state.postData],
             }
         }
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_STATUS:
@@ -68,12 +60,8 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
-export const addPost = () => ({
-    type: ADD_POST
-} as const)
-export const updateNewPostText = (newText: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText
+export const addPost = (NewPost: string) => ({
+    type: ADD_POST, NewPost
 } as const)
 export const setUserProfile = (profile: ProfileType) => ({
     type: SET_USER_PROFILE,

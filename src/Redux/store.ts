@@ -1,5 +1,5 @@
-import {addPost, setStatus, setUserProfile, updateNewPostText} from "./profileReducer";
-import {sendMessage, updateNewMessageText} from "./dialogsReducer";
+import {addPost, setStatus, setUserProfile} from "./profileReducer";
+import {sendMessage} from "./dialogsReducer";
 import {
     followSuccess, setCurrentPage, setTotalUsersCount,
     setUsers, toggleFollowingInProgress, toggleIsFetching, unfollowSuccess
@@ -75,16 +75,8 @@ export type usersPageType = {
     items: Array<UsersTypes>
 }
 
-// export type StoreType = {
-//     subscribe: (observer: () => void) => void
-//     getState: () => RootStateType
-//     dispatch: (action: ActionsTypes) => void
-// }
-
 export type ActionsTypes =
     ReturnType<typeof addPost> |
-    ReturnType<typeof updateNewPostText> |
-    ReturnType<typeof updateNewMessageText> |
     ReturnType<typeof sendMessage> |
     ReturnType<typeof followSuccess> |
     ReturnType<typeof unfollowSuccess> |
@@ -99,8 +91,11 @@ export type ActionsTypes =
     ReturnType<typeof setStatus>
 
 
-
-
+// export type StoreType = {
+//     subscribe: (observer: () => void) => void
+//     getState: () => RootStateType
+//     dispatch: (action: ActionsTypes) => void
+// }
 
 // export let store: StoreType = {
 //     state: {

@@ -1,12 +1,10 @@
 import {ActionsTypes, DialogItemTypes, MessageTypes} from "./store";
 
 const SEND_MESSAGE = 'SEND_MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 
 type InitialStateType = {
     dialogsData: Array<DialogItemTypes>
     messagesData: Array<MessageTypes>
-    newMessageText: string
 }
 
 let initialState: InitialStateType = {
@@ -23,23 +21,16 @@ let initialState: InitialStateType = {
         {id: 1, message: 'hey'},
         {id: 1, message: 'go'},
         {id: 1, message: 'high'},
-    ],
-    newMessageText: ''
+    ]
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newMessage
-            }
         case SEND_MESSAGE:
-            let newMessage = state.newMessageText
+            let newMessage = action.newMessageBody
             return {
                 ...state,
-                newMessageText: '',
                 messagesData: [...state.messagesData, {id: new Date().getTime(), message: newMessage}]
             }
         default:
@@ -47,11 +38,7 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
-export const sendMessage = () => ({
-    type: SEND_MESSAGE,
+export const sendMessage = (newMessageBody: string) => ({
+    type: SEND_MESSAGE, newMessageBody
 } as const)
 
-export const updateNewMessageText = (newMessage: string) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newMessage
-} as const)
