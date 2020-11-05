@@ -3,6 +3,8 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostTypes} from "../../../Redux/store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 type MyPostsPropsType = {
     postData: Array<PostTypes>
@@ -37,6 +39,9 @@ type MessageFormDataType = {
     NewPost: string
 }
 
+const maxLength10 = maxLengthCreator(10) //вызов валидатора вынесли из за ошибки,
+    //конфликт из за замыкания
+
 export const PostForm: React.FC<InjectedFormProps<MessageFormDataType>> = (props) => {
 
     // let onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,14 +57,12 @@ export const PostForm: React.FC<InjectedFormProps<MessageFormDataType>> = (props
 
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component='textarea' name='NewPost' placeholder='Enter your message'/>
+            <Field component={Textarea} placeholder='Enter message' name='NewPost' validate={[required, maxLength10]}/>
         </div>
         <div>
             <button>Add Post</button>
-            <button>Remove</button>
         </div>
     </form>
-
 }
 
 const PostReduxForm = reduxForm<MessageFormDataType>({

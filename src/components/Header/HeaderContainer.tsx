@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {RootStateReduxType} from "../../Redux/redux-store";
-import {getAuth} from "../../Redux/auth-reducer";
+import {logout} from "../../Redux/auth-reducer";
 
 
 type MapStatePropsType = {
@@ -14,17 +14,12 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    getAuth: (userId: number) => void
+    logout: () => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType
 
 class HeaderAPIContainer extends React.Component<PropsType> {
-
-    componentDidMount() {
-        this.props.getAuth(this.props.id)
-    }
-
     render() {
         return <Header {...this.props}/>
     }
@@ -38,4 +33,4 @@ const mapStateProps = (state: RootStateReduxType): MapStatePropsType => ({
     photo: state.auth.photo
 }) as MapStatePropsType
 
-export const HeaderContainer = connect(mapStateProps, {getAuth})(HeaderAPIContainer)
+export const HeaderContainer = connect(mapStateProps, {logout})(HeaderAPIContainer)
