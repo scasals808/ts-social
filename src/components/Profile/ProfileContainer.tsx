@@ -10,6 +10,8 @@ import {compose} from 'redux';
 
 type PatsParamsType = {
     userId: string
+    id: string
+    // isAuth: boolean
 }
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>
@@ -28,7 +30,7 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '10886'
+            userId = this.props.id
         }
         this.props.getProfile(Number(userId))
         this.props.getStatus(Number(userId))
@@ -36,7 +38,8 @@ class ProfileContainer extends React.Component<PropsType> {
 
     render() {
         return (
-            <Profile profile={this.props.profile} status={this.props.status}
+            <Profile profile={this.props.profile}
+                     status={this.props.status}
                      updateStatus={this.props.updateStatus}/>
         )
     }
@@ -44,7 +47,9 @@ class ProfileContainer extends React.Component<PropsType> {
 
 let mapStateToProps = (state: RootStateReduxType) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    id: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(
